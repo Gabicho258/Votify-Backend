@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 
+import {ChatRouter, MessageRouter} from "./api/routes/index.js"
 import "dotenv/config.js"
 
 // Mongo DB Atlas connection
@@ -20,6 +21,8 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use("/api", ChatRouter);
+app.use("/api", MessageRouter);
 
 
 // Server initializing
