@@ -1,7 +1,7 @@
 import { Chat } from "../models/index.js";
 
 export const createChat = async (req, res) => {
-  const { owner_id, friend_id } = req.body;
+  const { owner_id, friend_id, title, state, process_name } = req.body;
   try {
     const chat = await Chat.findOne({
       // encontrará aquel chat que contenga los id's
@@ -13,7 +13,12 @@ export const createChat = async (req, res) => {
     if (chat) return res.status(200).json(chat);
 
     // Si no existe un chat, lo creamos y retornamos
-    const newChat = new Chat({ members: [owner_id, friend_id] });
+    const newChat = new Chat({
+      members: [owner_id, friend_id],
+      title,
+      state,
+      process_name,
+    });
     const chatSaved = await newChat.save();
     if (chatSaved) return res.status(201).json(chatSaved);
     else return res.status(404).send("Error creando chat");
