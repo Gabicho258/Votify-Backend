@@ -1,10 +1,21 @@
 ## YAML Template
 
+server:
+  port: 8080
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
+
 spring:
   cloud:
     gateway:
       routes:
       - id: votify-user
-        uri: https://localhost:8080
+        uri: http://localhost:8081
         predicates:
         - Path=/api/v1/user/**
+      - id: node-auth
+        uri: http://localhost:3000
+        predicates:
+          - Path=/auth/google/**
