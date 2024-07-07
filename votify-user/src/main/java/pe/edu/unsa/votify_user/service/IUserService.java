@@ -9,10 +9,9 @@ import java.util.Optional;
 
 
 public interface IUserService {
-    User registrarUsuario(UserRequestDto user);
+    User registrarUsuario(User user);
     Page<UserRequestDto> listarUsuarios(Pageable paginacion);
     public Optional<UserRequestDto> obtenerUsuarioPorId(String id);
-    User actualizarUsuario(User user);
-
+    User actualizarUsuario(String id, User user);
 
 }
