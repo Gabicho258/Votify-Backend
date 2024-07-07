@@ -24,8 +24,8 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/api", ChatRouter);
-app.use("/api", MessageRouter);
+app.use("/api/buzon-service", ChatRouter);
+app.use("/api/buzon-service", MessageRouter);
 
 app.use("/", (req, res) => {
   res.send("Buzon service running...");
