@@ -12,6 +12,7 @@ import pe.edu.unsa.votify_user.models.bd.User;
 import pe.edu.unsa.votify_user.models.dto.UserRequestDto;
 import pe.edu.unsa.votify_user.service.IUserService;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -30,8 +31,8 @@ public class UserController {
     }
 
     @GetMapping("/list")
-    public Page<UserRequestDto> listUsers(@PageableDefault(size = 10) Pageable pageable) {
-        return userService.listarUsuarios(pageable);
+    public List<User> listUsers() {
+        return userService.listarUsuarios();
     }
 
     @GetMapping("/{id}")

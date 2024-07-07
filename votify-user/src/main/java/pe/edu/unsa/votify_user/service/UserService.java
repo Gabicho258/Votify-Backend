@@ -2,14 +2,13 @@ package pe.edu.unsa.votify_user.service;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pe.edu.unsa.votify_user.models.bd.User;
 import pe.edu.unsa.votify_user.models.dto.UserRequestDto;
 import pe.edu.unsa.votify_user.repository.IUserRepository;
 
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -32,8 +31,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Page<UserRequestDto> listarUsuarios(Pageable paginacion) {
-        return userRepository.findAll(paginacion).map(UserRequestDto::new);
+    public List<User> listarUsuarios() {
+        return userRepository.findAll();
     }
 
     @Override
