@@ -30,8 +30,9 @@ app.post("/auth/google", async (req, res) => {
   // console.log("tokens",tokens.access_token);
   // console.log("userinfo", userInfo);
   const userInfo = {
-    tokens: tokens,user:  userResponse.data
-  }
+    tokens: tokens,
+    user: userResponse.data,
+  };
   res.json(userInfo);
 });
 
@@ -45,4 +46,6 @@ app.post("/auth/google/refresh-token", async (req, res) => {
   res.json(credentials);
 });
 
-app.listen(5000, () => console.log(`Server is running`));
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
