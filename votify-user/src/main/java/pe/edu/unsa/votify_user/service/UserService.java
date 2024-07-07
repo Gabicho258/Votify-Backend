@@ -1,7 +1,6 @@
 package pe.edu.unsa.votify_user.service;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +9,7 @@ import pe.edu.unsa.votify_user.models.bd.User;
 import pe.edu.unsa.votify_user.models.dto.UserRequestDto;
 import pe.edu.unsa.votify_user.repository.IUserRepository;
 
-import java.time.LocalDate;
+
 import java.util.Optional;
 
 

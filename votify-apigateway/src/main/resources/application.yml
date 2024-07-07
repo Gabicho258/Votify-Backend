@@ -1,0 +1,10 @@
+## YAML Template
+
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: votify-user
+        uri: https://localhost:8080
+        predicates:
+        - Path=/api/v1/user/**
