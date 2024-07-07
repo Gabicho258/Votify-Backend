@@ -12,7 +12,7 @@ import axios from "axios";
 
 const app = express();
 
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 const oAuth2Client = new OAuth2Client(

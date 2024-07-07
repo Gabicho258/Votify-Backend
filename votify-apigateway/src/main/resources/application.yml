@@ -10,6 +10,19 @@ logging:
 spring:
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:5173"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            allowedHeaders:
+              - "Content-Type"
+              - "Authorization"
+            allowCredentials: true
       routes:
       - id: votify-user
         uri: http://localhost:8081
