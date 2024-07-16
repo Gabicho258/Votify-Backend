@@ -13,7 +13,7 @@ public interface IUserService {
     User registrarUsuario(User user);
     List<UserCreatedDTO> listarUsuarios();
     public Optional<UserCreatedDTO> obtenerUsuarioPorId(String id);
-    User actualizarUsuario(String id, User user);
+    User actualizarUsuario(String id, UserCreatedDTO user);
 
 
 }

@@ -49,33 +49,37 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User actualizarUsuario(String id, User user) {
+    public User actualizarUsuario(String id, UserCreatedDTO user) {
         User userUpdate = userRepository.findById(id).orElse(null);
         if (userUpdate == null) {
-            return null;
+            throw new RuntimeException("No existe el usuario con id " + id);
         }
-        userUpdate.setUser_name(user.get_id());
-        if (user.getUser_surname() != null){
-            userUpdate.setUser_surname(user.getUser_surname());
+
+        if(user.user_name() != null ){
+            userUpdate.setUser_name(user.user_name());
         }
-        if(user.getUser_name() != null ){
-            userUpdate.setUser_name(user.getUser_name());
+
+        if (user.user_surname() != null){
+            userUpdate.setUser_surname(user.user_surname());
         }
-        if(user.getRole() != null){
-            userUpdate.setRole(user.getRole());
+
+        if(user.role() != null){
+            userUpdate.setRole(user.role());
         }
-        if(user.getEmail() != null){
-            userUpdate.setEmail(user.getEmail());
+        if(user.email() != null){
+            userUpdate.setEmail(user.email());
         }
-        if(user.getDni() != null){
-            userUpdate.setDni(user.getDni());
+        if(user.dni() != null){
+            userUpdate.setDni(user.dni());
         }
-        if (user.getCreate_at() != null) {
-            userUpdate.setCreate_at(user.getCreate_at());
+        if (user.created_at() != null) {
+            userUpdate.setCreate_at(user.created_at());
         }
-        if (user.isIsactive()){
-            userUpdate.setIsactive(user.isIsactive());
+
+        if(user.is_active() != null){
+            userUpdate.setIsactive(user.is_active());
         }
+
         return userRepository.save(userUpdate);
     }
 }
