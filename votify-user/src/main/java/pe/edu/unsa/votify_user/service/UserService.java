@@ -4,10 +4,12 @@ package pe.edu.unsa.votify_user.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pe.edu.unsa.votify_user.models.bd.User;
+import pe.edu.unsa.votify_user.models.dto.UserCreatedDTO;
 import pe.edu.unsa.votify_user.models.dto.UserRequestDto;
 import pe.edu.unsa.votify_user.repository.IUserRepository;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,8 +33,14 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> listarUsuarios() {
-        return userRepository.findAll();
+    public List<UserCreatedDTO> listarUsuarios() {
+
+        List<UserCreatedDTO> createdDTOs = new ArrayList<>();
+        List<User> users = userRepository.findAll();
+        for (User user : users) {
+            createdDTOs.add(new UserCreatedDTO(user));
+        }
+        return createdDTOs;
     }
 
     @Override

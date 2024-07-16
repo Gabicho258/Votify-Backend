@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @GetMapping("/list")
-    public List<User> listUsers() {
+    public List<UserCreatedDTO> listUsers() {
         return userService.listarUsuarios();
     }
 
@@ -42,8 +42,8 @@ public class UserController {
     }
 
     @PutMapping("/{_id}")
-    public ResponseEntity<User> updateUser(@PathVariable String _id, @RequestBody User user) {
-        return new ResponseEntity<>(userService.actualizarUsuario(_id, user)
+    public ResponseEntity<UserCreatedDTO> updateUser(@PathVariable String _id, @RequestBody User user) {
+        return new ResponseEntity<>(new UserCreatedDTO(userService.actualizarUsuario(_id, user))
                 , HttpStatus.OK);
     }
 
