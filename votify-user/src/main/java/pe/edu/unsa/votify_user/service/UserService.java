@@ -26,7 +26,7 @@ public class UserService implements IUserService {
         newUser.setUser_surname(user.getUser_surname());
         newUser.setEmail(user.getEmail());
         newUser.setDni(user.getDni());
-        newUser.set_active(true);
+        newUser.setIsactive(true);
         return userRepository.save(newUser);
     }
 
@@ -65,8 +65,8 @@ public class UserService implements IUserService {
         if (user.getCreate_at() != null) {
             userUpdate.setCreate_at(user.getCreate_at());
         }
-        if (user.is_active()){
-            userUpdate.set_active(user.is_active());
+        if (user.isIsactive()){
+            userUpdate.setIsactive(user.isIsactive());
         }
         return userRepository.save(userUpdate);
     }

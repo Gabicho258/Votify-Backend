@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.unsa.votify_user.models.bd.User;
+import pe.edu.unsa.votify_user.models.dto.UserCreatedDTO;
 import pe.edu.unsa.votify_user.models.dto.UserRequestDto;
 import pe.edu.unsa.votify_user.service.IUserService;
 
@@ -24,9 +25,9 @@ public class UserController {
     IUserService userService;
 
     @PostMapping("/create")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
-        return new ResponseEntity<>(
-                userService.registrarUsuario(user),
+    public ResponseEntity<UserRequestDto> registerUser(@RequestBody User user) {
+        return new ResponseEntity(
+                new UserCreatedDTO(userService.registrarUsuario(user)),
                 HttpStatus.CREATED);
     }
 

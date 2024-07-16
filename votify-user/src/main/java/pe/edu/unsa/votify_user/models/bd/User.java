@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+
 
 import java.util.Date;
 
@@ -28,8 +28,7 @@ public class User {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date create_at = new Date();
     private String dni;
-    @Field("is_active")
-    private boolean is_active;
+    private boolean isactive;
 
 
 }
