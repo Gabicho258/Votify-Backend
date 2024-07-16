@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface IUserService {
     User registrarUsuario(User user);
     List<UserCreatedDTO> listarUsuarios();
-    public Optional<UserRequestDto> obtenerUsuarioPorId(String id);
+    public Optional<UserCreatedDTO> obtenerUsuarioPorId(String id);
     User actualizarUsuario(String id, User user);
 
 

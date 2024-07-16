@@ -44,8 +44,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Optional<UserRequestDto> obtenerUsuarioPorId(String id) {
-        return userRepository.findById(id).map(UserRequestDto::new);
+    public Optional<UserCreatedDTO> obtenerUsuarioPorId(String id) {
+        return userRepository.findById(id).map(UserCreatedDTO::new);
     }
 
     @Override

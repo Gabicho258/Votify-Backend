@@ -12,6 +12,7 @@ import pe.edu.unsa.votify_user.models.bd.User;
 import pe.edu.unsa.votify_user.models.dto.UserCreatedDTO;
 import pe.edu.unsa.votify_user.models.dto.UserRequestDto;
 import pe.edu.unsa.votify_user.service.IUserService;
+import pe.edu.unsa.votify_user.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +38,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public Optional<UserRequestDto> getUser(@PathVariable String id) {
+    public Optional<UserCreatedDTO> getUser(@PathVariable String id) {
         return userService.obtenerUsuarioPorId(id);
     }
 
