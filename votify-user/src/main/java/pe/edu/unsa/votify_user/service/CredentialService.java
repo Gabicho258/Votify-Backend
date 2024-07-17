@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.edu.unsa.votify_user.models.bd.Credential;
 import pe.edu.unsa.votify_user.models.bd.User;
-import pe.edu.unsa.votify_user.models.dto.UserProcessRequestDto;
-import pe.edu.unsa.votify_user.models.dto.UsersCredentialRequestDto;
-import pe.edu.unsa.votify_user.models.dto.VoterCredentialRequestDto;
-import pe.edu.unsa.votify_user.models.dto.VoterRequestDto;
+import pe.edu.unsa.votify_user.models.dto.*;
 import pe.edu.unsa.votify_user.repository.ICredentialRepository;
 import pe.edu.unsa.votify_user.repository.IUserRepository;
 
@@ -82,8 +79,8 @@ public class CredentialService implements ICredentialService {
                 voter.setUser_name(usuarioExistente.get().getUser_name());
                 voter.setEmail(usuarioExistente.get().getEmail());
                 voter.setDni(voterOriginal.getDni());
-                userCredential.setUser_id(usuarioExistente.get().get_id());
-                userCredential.setProcess_id(votifyUsers.getProcess_id());
+                userCredential.setUser(usuarioExistente.get().get_id());
+                userCredential.setProcess(votifyUsers.getProcess_id());
                 Credential aprobado = registrarCredential(userCredential);
                 voter.setCredential(aprobado.getPassword());
                 listVotantes.add(voter);
@@ -104,8 +101,8 @@ public class CredentialService implements ICredentialService {
                 voter.setUser_name(usuarioNuevo.getUser_name());
                 voter.setEmail(usuarioNuevo.getEmail());
                 voter.setDni(usuarioNuevo.getDni());
-                userCredential.setUser_id(usuarioCreado.get().get_id());
-                userCredential.setProcess_id(votifyUsers.getProcess_id());
+                userCredential.setUser(usuarioCreado.get().get_id());
+                userCredential.setProcess(votifyUsers.getProcess_id());
                 Credential aprobado = registrarCredential(userCredential);
                 voter.setCredential(aprobado.getPassword());
                 listVotantes.add(voter);
@@ -119,13 +116,28 @@ public class CredentialService implements ICredentialService {
     }
 
     @Override
-    public Credential buscarPorUserId(String user_id) {
-        return null;
+    public List<CredentialResponseDTO> buscarPorUserId(String user_id) {
+        List<CredentialResponseDTO> usuarios = new ArrayList<>();
+        User user = userRepository.findBy_id(user_id);
+
+        for (Credential credential :  credentialRepository.findByUser(user_id)) {
+            usuarios.add(new CredentialResponseDTO(credential.get_id(), credential.getUser(), user.getEmail(), credential.getProcess(), credential.getPassword()));
+        }
+
+        return usuarios;
     }
 
     @Override
-    public Credential buscarPorProccessId(String process_id) {
-        return null;
+    public List<CredentialResponseDTO> buscarPorProccessId(String process_id) {
+        List<CredentialResponseDTO> procesos = new ArrayList<>();
+        User user = userRepository.findBy_id(process_id);
+        credentialRepository.findByProcess(process_id);
+
+        for (Credential credential : credentialRepository.findAll()) {
+            procesos.add(new CredentialResponseDTO(credential.get_id(), credential.getUser(), user.getEmail(), credential.getProcess(), credential.getPassword()));
+        }
+
+        return procesos;
     }
 
     public String generadorDeCredenciales(){

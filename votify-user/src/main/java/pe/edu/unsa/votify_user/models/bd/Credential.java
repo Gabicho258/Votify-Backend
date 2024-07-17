@@ -15,8 +15,9 @@ public class Credential {
     @Id
     private String _id;
     @Field("user_id")
-    private String user_id;
+    private String user;
     @Field("process_id")
-    private String process_id;
+    private String process;
     private String password;
+
 }
