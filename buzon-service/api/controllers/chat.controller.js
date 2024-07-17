@@ -49,3 +49,20 @@ export const getOneChat = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
+export const updateChat = async (req, res) => {
+  const { id: chat_id } = req.params;
+  const chatToUpdate = req.body;
+  try {
+    const chatUpdated = await Chat.findByIdAndUpdate(chat_id, chatToUpdate, {
+      new: true,
+    });
+    if (chatUpdated) {
+      res.status(200).json(chatUpdated);
+    } else {
+      res.status(204).json({ error: "Chat not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
