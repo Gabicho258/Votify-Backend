@@ -14,6 +14,7 @@ public interface IUserService {
     List<UserCreatedDTO> listarUsuarios();
     public Optional<UserCreatedDTO> obtenerUsuarioPorId(String id);
     User actualizarUsuario(String id, UserCreatedDTO user);
+    User obtenerUsuarioPorEmail(String email);
 
 
 }

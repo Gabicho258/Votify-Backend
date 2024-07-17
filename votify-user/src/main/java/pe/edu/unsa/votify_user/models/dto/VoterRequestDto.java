@@ -6,7 +6,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class VoterRequestDto{
-    String _id;
+    String dni;
     String user_name;
     String user_surname;
     String email;

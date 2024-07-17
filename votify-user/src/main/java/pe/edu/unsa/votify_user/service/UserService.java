@@ -82,4 +82,10 @@ public class UserService implements IUserService {
 
         return userRepository.save(userUpdate);
     }
+
+    @Override
+    public User obtenerUsuarioPorEmail(String email) {
+
+        return userRepository.findByEmail(email).get();
+    }
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,7 +14,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Credential {
     @Id
     private String _id;
+    @Field("user_id")
     private String user_id;
+    @Field("process_id")
     private String process_id;
     private String password;
 }

@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @Data
 public class VoterCredentialRequestDto{
-    String _id;
+    String dni;
     String user_name;
     String user_surname;
     String email;
