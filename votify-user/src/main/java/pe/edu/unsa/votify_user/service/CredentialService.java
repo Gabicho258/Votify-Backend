@@ -83,6 +83,16 @@ public class CredentialService implements ICredentialService {
         return responseUserCredential;
     }
 
+    @Override
+    public Credential buscarPorUserId(String user_id) {
+        return null;
+    }
+
+    @Override
+    public Credential buscarPorProccessId(String process_id) {
+        return null;
+    }
+
     public String generadorDeCredenciales(){
         StringBuilder sb = new StringBuilder();
         Random random = new Random();

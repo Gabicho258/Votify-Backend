@@ -14,4 +14,6 @@ public interface ICredentialService {
    List<Credential> listarCredential();
    boolean obtenerCredentialPorPassword(String id);
    UsersCredentialRequestDto registrarUsuarios(UserProcessRequestDto votifyUserCredential);
+   Credential buscarPorUserId(String user_id);
+   Credential buscarPorProccessId(String process_id);
 }

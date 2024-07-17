@@ -9,4 +9,6 @@ import pe.edu.unsa.votify_user.models.bd.Credential;
 @Repository
 public interface ICredentialRepository extends MongoRepository<Credential, String> {
     Credential findByPassword(String password);
+    Credential findByUser_id(String user_id);
+    Credential findByProcess_id(String process_id);
 }
