@@ -2,17 +2,19 @@ package pe.edu.unsa.votify_user.service;
 
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.edu.unsa.votify_user.models.bd.Credential;
 import pe.edu.unsa.votify_user.models.bd.User;
-import pe.edu.unsa.votify_user.models.dto.*;
+import pe.edu.unsa.votify_user.models.dto.request.UserProcessRequestDto;
+import pe.edu.unsa.votify_user.models.dto.request.VoterRequestDto;
+import pe.edu.unsa.votify_user.models.dto.response.CredentialResponseDTO;
+import pe.edu.unsa.votify_user.models.dto.response.UsersResponseDto;
+import pe.edu.unsa.votify_user.models.dto.response.VoterResponseDTO;
 import pe.edu.unsa.votify_user.repository.ICredentialRepository;
 import pe.edu.unsa.votify_user.repository.IUserRepository;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -63,13 +65,13 @@ public class CredentialService implements ICredentialService {
 
     @Transactional
     @Override
-    public UsersCredentialRequestDto registrarUsuarios(UserProcessRequestDto votifyUsers) {
-        List<VoterCredentialRequestDto> listVotantes = new ArrayList<>(); ;
+    public UsersResponseDto registrarUsuarios(UserProcessRequestDto votifyUsers) {
+        List<VoterResponseDTO> listVotantes = new ArrayList<>(); ;
         List<VoterRequestDto> listVotersOriginal = votifyUsers.getVoters();
         for (int i = 0; i < listVotersOriginal.size(); i++){
             VoterRequestDto voterOriginal = listVotersOriginal.get(i);
             Credential userCredential = new Credential();
-            VoterCredentialRequestDto voter = new VoterCredentialRequestDto();
+            VoterResponseDTO voter = new VoterResponseDTO();
             Optional<User> usuarioExistente = userRepository.findByEmail(voterOriginal.getEmail());
 
 
@@ -108,7 +110,7 @@ public class CredentialService implements ICredentialService {
                 listVotantes.add(voter);
             }
         }
-        UsersCredentialRequestDto responseUserCredential = new UsersCredentialRequestDto();
+        UsersResponseDto responseUserCredential = new UsersResponseDto();
         responseUserCredential.setProcess_id(votifyUsers.getProcess_id());
         responseUserCredential.setProcess_title(votifyUsers.getProcess_title());
         responseUserCredential.setVoters(listVotantes);
@@ -118,6 +120,7 @@ public class CredentialService implements ICredentialService {
     @Override
     public List<CredentialResponseDTO> buscarPorUserId(String user_id) {
         List<CredentialResponseDTO> usuarios = new ArrayList<>();
+
         User user = userRepository.findBy_id(user_id);
 
         for (Credential credential :  credentialRepository.findByUser(user_id)) {
@@ -131,6 +134,7 @@ public class CredentialService implements ICredentialService {
     public List<CredentialResponseDTO> buscarPorProccessId(String process_id) {
         List<CredentialResponseDTO> procesos = new ArrayList<>();
         User user = userRepository.findBy_id(process_id);
+
         credentialRepository.findByProcess(process_id);
 
         for (Credential credential : credentialRepository.findAll()) {

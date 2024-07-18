@@ -1,4 +1,4 @@
-package pe.edu.unsa.votify_user.models.dto;
+package pe.edu.unsa.votify_user.models.dto.request;
 
 import pe.edu.unsa.votify_user.models.bd.User;
 

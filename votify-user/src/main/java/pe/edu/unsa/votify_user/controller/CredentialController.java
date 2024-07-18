@@ -7,9 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.unsa.votify_user.models.bd.Credential;
-import pe.edu.unsa.votify_user.models.dto.CredentialResponseDTO;
-import pe.edu.unsa.votify_user.models.dto.UserProcessRequestDto;
-import pe.edu.unsa.votify_user.models.dto.UsersCredentialRequestDto;
+import pe.edu.unsa.votify_user.models.dto.response.CredentialResponseDTO;
+import pe.edu.unsa.votify_user.models.dto.request.UserProcessRequestDto;
+import pe.edu.unsa.votify_user.models.dto.response.UsersResponseDto;
 import pe.edu.unsa.votify_user.service.ICredentialService;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class CredentialController {
     }
 
     @PostMapping("/create/users")
-    public ResponseEntity<UsersCredentialRequestDto> createCredentialsUser(@RequestBody UserProcessRequestDto requestVote) {
+    public ResponseEntity<UsersResponseDto> createCredentialsUser(@RequestBody UserProcessRequestDto requestVote) {
         return new ResponseEntity<>(credentialService.registrarUsuarios(requestVote), HttpStatus.CREATED);
     }
 
