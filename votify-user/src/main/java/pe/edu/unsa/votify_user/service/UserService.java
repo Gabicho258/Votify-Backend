@@ -4,8 +4,7 @@ package pe.edu.unsa.votify_user.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pe.edu.unsa.votify_user.models.bd.User;
-import pe.edu.unsa.votify_user.models.dto.UserCreatedDTO;
-import pe.edu.unsa.votify_user.models.dto.UserRequestDto;
+import pe.edu.unsa.votify_user.models.dto.response.UserResponseDTO;
 import pe.edu.unsa.votify_user.repository.IUserRepository;
 
 
@@ -33,23 +32,23 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<UserCreatedDTO> listarUsuarios() {
+    public List<UserResponseDTO> listarUsuarios() {
 
-        List<UserCreatedDTO> createdDTOs = new ArrayList<>();
+        List<UserResponseDTO> createdDTOs = new ArrayList<>();
         List<User> users = userRepository.findAll();
         for (User user : users) {
-            createdDTOs.add(new UserCreatedDTO(user));
+            createdDTOs.add(new UserResponseDTO(user));
         }
         return createdDTOs;
     }
 
     @Override
-    public Optional<UserCreatedDTO> obtenerUsuarioPorId(String id) {
-        return userRepository.findById(id).map(UserCreatedDTO::new);
+    public Optional<UserResponseDTO> obtenerUsuarioPorId(String id) {
+        return userRepository.findById(id).map(UserResponseDTO::new);
     }
 
     @Override
-    public User actualizarUsuario(String id, UserCreatedDTO user) {
+    public User actualizarUsuario(String id, UserResponseDTO user) {
         User userUpdate = userRepository.findById(id).orElse(null);
         if (userUpdate == null) {
             throw new RuntimeException("No existe el usuario con id " + id);

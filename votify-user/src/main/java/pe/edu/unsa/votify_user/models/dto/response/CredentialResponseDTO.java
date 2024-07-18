@@ -1,6 +1,4 @@
-package pe.edu.unsa.votify_user.models.dto;
-
-import org.springframework.data.mongodb.core.mapping.Field;
+package pe.edu.unsa.votify_user.models.dto.response;
 
 public record CredentialResponseDTO(
         String _id,

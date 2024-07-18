@@ -1,4 +1,4 @@
-package pe.edu.unsa.votify_user.models.dto;
+package pe.edu.unsa.votify_user.models.dto.response;
 
 
 import lombok.*;
@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class VoterCredentialRequestDto{
+public class VoterResponseDTO {
     String dni;
     String user_name;
     String user_surname;
