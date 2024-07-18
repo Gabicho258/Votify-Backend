@@ -80,7 +80,7 @@ public class CredentialService implements ICredentialService {
                 voter.setUser_surname(usuarioExistente.get().getUser_surname());
                 voter.setUser_name(usuarioExistente.get().getUser_name());
                 voter.setEmail(usuarioExistente.get().getEmail());
-                voter.setDni(voterOriginal.getDni());
+                voter.setDni(usuarioExistente.get().getDni());
                 userCredential.setUser(usuarioExistente.get().get_id());
                 userCredential.setProcess(votifyUsers.getProcess_id());
                 Credential aprobado = registrarCredential(userCredential);
