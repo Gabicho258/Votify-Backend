@@ -28,7 +28,7 @@ spring:
         uri: http://localhost:8081
         predicates:
           - Path=/api/v1/user
-          - Path=/ap1/v1/credential
+          - Path=/api/v1/credential
       - id: node-auth
         uri: http://localhost:3000
         predicates:
