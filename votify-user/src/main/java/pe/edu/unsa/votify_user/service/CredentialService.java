@@ -133,12 +133,10 @@ public class CredentialService implements ICredentialService {
     @Override
     public List<CredentialResponseDTO> buscarPorProccessId(String process_id) {
         List<CredentialResponseDTO> procesos = new ArrayList<>();
-        User user = userRepository.findBy_id(process_id);
 
-        credentialRepository.findByProcess(process_id);
 
-        for (Credential credential : credentialRepository.findAll()) {
-            procesos.add(new CredentialResponseDTO(credential.get_id(), credential.getUser(), user.getEmail(), credential.getProcess(), credential.getPassword()));
+        for (Credential credential : credentialRepository.findByProcess(process_id)) {
+            procesos.add(new CredentialResponseDTO(credential.get_id(), credential.getUser(), userRepository.findBy_id(credential.getUser()).getEmail(), credential.getProcess(), credential.getPassword()));
         }
 
         return procesos;
