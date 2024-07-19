@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: votify-apigateway-spring-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: votify-apigateway-spring
+  template:
+    metadata:
+      labels:
+        app: votify-apigateway-spring
+    spec:
+      containers:
+      - name: votify-apigateway-spring
+        image: voticr.azurecr.io/votify-apigateway-spring:latest
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: acr-auth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: votify-apigateway-spring
+spec:
+  selector:
+    app: votify-apigateway-spring
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: votify-user-spring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: votify-user-spring
+  template:
+    metadata:
+      labels:
+        app: votify-user-spring
+    spec:
+      containers:
+      - name: votify-user-spring
+        image: voticr.azurecr.io/votify-user-spring:latest
+        ports:
+        - containerPort: 8081
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: votify-user-spring
+spec:
+  selector:
+    app: votify-user-spring
+  ports:
+  - protocol: TCP
+    port: 81
+    targetPort: 8081
+  type: LoadBalancer

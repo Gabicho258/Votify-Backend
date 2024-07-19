@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  
+  votify-apigateway:
+    build: 
+      context: ./votify-apigateway
+    container_name: votify-apigateway
+    ports:
+      - "8080:8080"
+    networks:
+      - votify-network
+
+  votify-user:
+    build: 
+      context: ./votify-user
+    container_name: user-service
+    ports:
+      - "8081:8081"
+    networks:
+      - votify-network
+
+networks:
+  votify-network:
+    driver: bridge
