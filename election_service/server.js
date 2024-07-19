@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import updateElectionStatus from "./api/scheduler/updateProcessState.js";
 
 import "dotenv/config.js";
 import {
@@ -23,13 +24,13 @@ await mongoose
 const app = express();
 
 // Middleware
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/api", CandidateRouter);
-app.use("/api", ElectionProcessRouter);
-app.use("/api", ListRouter);
+app.use("/api/election-service", CandidateRouter);
+app.use("/api/election-service", ElectionProcessRouter);
+app.use("/api/election-service", ListRouter);
 
 app.use("/", (req, res) => {
   res.send("Election service running...");
@@ -37,8 +38,11 @@ app.use("/", (req, res) => {
 
 //Listening server
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
+
+// Scheduler
+updateElectionStatus();

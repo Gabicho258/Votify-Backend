@@ -6,7 +6,7 @@ const electionProcessSchema = {
   title: String,
   admin_status: String,
   process_status: String,
-  start_time: String,
+  start_date: String,
   end_date: String,
 };
 

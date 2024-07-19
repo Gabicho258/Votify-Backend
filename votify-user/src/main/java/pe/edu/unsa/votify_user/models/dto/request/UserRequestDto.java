@@ -1,8 +1,9 @@
-package pe.edu.unsa.votify_user.models.dto;
+package pe.edu.unsa.votify_user.models.dto.request;
 
 import pe.edu.unsa.votify_user.models.bd.User;
 
 import java.util.Date;
+
 
 public record UserRequestDto (String id, String user_name,  String role, String user_surname, String email, Date created_at, String dni) {
 
