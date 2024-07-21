@@ -10,6 +10,7 @@ import pe.edu.unsa.votify_user.models.bd.User;
 import pe.edu.unsa.votify_user.models.dto.request.UserProcessRequestDto;
 import pe.edu.unsa.votify_user.models.dto.request.VoterRequestDto;
 import pe.edu.unsa.votify_user.models.dto.response.CredentialResponseDTO;
+import pe.edu.unsa.votify_user.models.dto.response.CredentilUpdateUsedDTO;
 import pe.edu.unsa.votify_user.models.dto.response.UsersResponseDto;
 import pe.edu.unsa.votify_user.models.dto.response.VoterResponseDTO;
 import pe.edu.unsa.votify_user.repository.ICredentialRepository;
@@ -124,7 +125,7 @@ public class CredentialService implements ICredentialService {
         User user = userRepository.findBy_id(user_id);
 
         for (Credential credential :  credentialRepository.findByUser(user_id)) {
-            usuarios.add(new CredentialResponseDTO(credential.get_id(), credential.getUser(), user.getEmail(), credential.getProcess(), credential.getPassword()));
+            usuarios.add(new CredentialResponseDTO(credential.get_id(), credential.getUser(), user.getEmail(), credential.getProcess(), credential.isWas_used(), credential.getPassword()));
         }
 
         return usuarios;
@@ -136,10 +137,27 @@ public class CredentialService implements ICredentialService {
 
 
         for (Credential credential : credentialRepository.findByProcess(process_id)) {
-            procesos.add(new CredentialResponseDTO(credential.get_id(), credential.getUser(), userRepository.findBy_id(credential.getUser()).getEmail(), credential.getProcess(), credential.getPassword()));
+            User usuario = userRepository.findBy_id(credential.getUser());
+            if(usuario != null){
+                procesos.add(new CredentialResponseDTO(credential.get_id(), credential.getUser(), userRepository.findBy_id(credential.getUser()).getEmail(), credential.getProcess(), credential.isWas_used(), credential.getPassword()));
+            }
         }
 
         return procesos;
+    }
+
+    public CredentilUpdateUsedDTO actualizarCredencialUsada(String id){
+        Credential credentialFind = credentialRepository.findBy_id(id);
+
+        if(credentialFind != null){
+            credentialFind.setWas_used(true);
+            credentialRepository.save(credentialFind);
+        }
+        else {
+            return null;
+        }
+        return new CredentilUpdateUsedDTO(credentialFind.get_id(), credentialFind.getUser(), credentialFind.getProcess(), credentialFind.isWas_used(), "Votación realizada");
+
     }
 
     public String generadorDeCredenciales(){

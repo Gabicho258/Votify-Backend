@@ -1,11 +1,11 @@
 package pe.edu.unsa.votify_user.models.dto.response;
 
-public record CredentialResponseDTO(
+public record CredentilUpdateUsedDTO(
         String _id,
         String user_id,
-        String email,
         String process_id,
         Boolean was_used,
-        String password){
+        String message
+) {
 
 }

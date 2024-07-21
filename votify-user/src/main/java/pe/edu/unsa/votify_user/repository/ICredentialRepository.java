@@ -11,9 +11,8 @@ import java.util.List;
 @Repository
 public interface ICredentialRepository extends MongoRepository<Credential, String> {
     Credential findByPassword(String password);
+    Credential findBy_id(String id);
     List<Credential> findByProcess(String procces_id);
     List<Credential> findByUser(String user);
-
-
 
 }
