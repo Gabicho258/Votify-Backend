@@ -6,7 +6,7 @@ const candidateSchema = {
   photo_url: String,
   organization_name: String,
   logo_url: String,
-  valid_votes: Number,
+  valid_votes: { type: Number, default: 0 },
 };
 
 const Candidate = mongoose.model(

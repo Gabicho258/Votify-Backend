@@ -53,6 +53,24 @@ export const createCandidate = async (req, res) => {
   }
 };
 
+export const addVoteCandidate = async (req, res) => {
+  const { id: candidate_id } = req.params;
+
+  try {
+    const candidate = await Candidate.findById(candidate_id);
+
+    if (candidate) {
+      candidate.valid_votes += 1;
+      await candidate.save();
+      res.status(200).json({ message: "Vote saved succesfully" });
+    } else {
+      res.status(404).json({ message: "Candidate not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export const updateCandidate = async (req, res) => {
   const { id: candidate_id } = req.params;
   const candidateToUpdate = req.body;

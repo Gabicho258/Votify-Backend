@@ -7,8 +7,14 @@ export const createChat = async (req, res) => {
       // encontrará aquel chat que contenga los id's
       // mandandos, sin que sea importante si tiene más
       // valores
-      members: { $all: [owner_id, friend_id] },
+      process_name,
     });
+    // const chat = await Chat.findOne({
+    //   // encontrará aquel chat que contenga los id's
+    //   // mandandos, sin que sea importante si tiene más
+    //   // valores
+    //   members: { $all: [owner_id, friend_id] },
+    // });
     // si existe un chat, lo retornamos
     if (chat) return res.status(200).json(chat);
 
