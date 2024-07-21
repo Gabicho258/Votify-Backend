@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import pe.edu.unsa.votify_user.models.bd.Credential;
 import pe.edu.unsa.votify_user.models.dto.response.CredentialResponseDTO;
 import pe.edu.unsa.votify_user.models.dto.request.UserProcessRequestDto;
+import pe.edu.unsa.votify_user.models.dto.response.CredentilUpdateUsedDTO;
 import pe.edu.unsa.votify_user.models.dto.response.UsersResponseDto;
 import pe.edu.unsa.votify_user.service.ICredentialService;
 
@@ -44,6 +45,11 @@ public class CredentialController {
     @GetMapping("/process/{id}")
     public ResponseEntity<List<CredentialResponseDTO>> getCredentialsProcess(@PathVariable String id) {
         return new ResponseEntity<>(credentialService.buscarPorProccessId(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/update-used/{id}")
+    public ResponseEntity<CredentilUpdateUsedDTO> updateCredentialUsed(@PathVariable String id) {
+        return new ResponseEntity<>(credentialService.actualizarCredencialUsada(id), HttpStatus.OK);
     }
 
 }

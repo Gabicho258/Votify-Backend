@@ -19,5 +19,6 @@ public class Credential {
     @Field("process_id")
     private String process;
     private String password;
+    private boolean was_used = false;
 
 }
