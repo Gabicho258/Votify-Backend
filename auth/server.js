@@ -4,11 +4,8 @@ import express from "express";
 import { OAuth2Client } from "google-auth-library";
 import "dotenv/config.js";
 import cors from "cors";
+import jwt from "jsonwebtoken";
 import axios from "axios";
-
-// const express = require('express');
-// const { OAuth2Client, } = require('google-auth-library');
-// const cors = require('cors');
 
 const app = express();
 
@@ -29,11 +26,15 @@ app.post("/auth/google", async (req, res) => {
   );
   // console.log("tokens",tokens.access_token);
   // console.log("userinfo", userInfo);
-  const userInfo = {
-    tokens: tokens,
-    user: userResponse.data,
-  };
-  res.json(userInfo);
+  jwt.sign(userResponse.data, process.env.SECRET_KEY, (error, token) => {
+    if (!error) {
+      const userInfo = {
+        tokens: { ...tokens, appJWT: token },
+        user: userResponse.data,
+      };
+      res.status(200).json(userInfo);
+    } else res.status(401).json({ message: "Error generating token" });
+  });
 });
 
 app.post("/auth/google/refresh-token", async (req, res) => {
@@ -44,6 +45,22 @@ app.post("/auth/google/refresh-token", async (req, res) => {
   );
   const { credentials } = await user.refreshAccessToken(); // optain new tokens
   res.json(credentials);
+});
+
+app.post("/auth/google/verify", async (req, res) => {
+  const token = req.headers["authorization"]?.split(" ")[1];
+  if (token) {
+    jwt.verify(token, process.env.SECRET_KEY, (error, decoded) => {
+      if (!error) {
+        res.status(200).json({
+          message: "Token verified succesfully",
+        }); // pasamos a la siguiente función luego de autenticar al usuario
+      } else res.status(401).send(); // Error "Unauthorized"
+    });
+  } else {
+    // Solicitud invalida
+    res.status(400).json({ error: "No token provided." });
+  }
 });
 
 const PORT = process.env.PORT || 3000;
